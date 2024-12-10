@@ -275,7 +275,7 @@
                                         <th>Postingan</th>
                                         <th>Comment Status</th>
                                         <th>Status Postingan</th>
-                                        <th>Password</th>
+                                        <th>URL</th>
                                         <th>Tanggal Publish</th>
                                         <th>Tanggal Perubahan</th>
                                         <th>post_excerpt</th>
@@ -289,14 +289,14 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $post->post_title }}</td>
                                             <td>{{ $post->post_name }}</td>
-                                            <td>{{ $post->post_content }}</td>
+                                            <td>{{ substr($post->post_content, 0, 30) }}...</td>
                                             <td>{{ $post->comment_status }}</td>
                                             <td>{{ $post->post_status }}</td>
-                                            <td>{{ $post->post_password }}</td>
+                                            <td><a href="{{ $post->guid }}">{{ $post->guid }}</a></td>
                                             <td>{{ $post->post_date }}</td>
                                             <td>{{ $post->post_modified == '-' || is_null($post->post_modified) ? '-' : $post->post_modified }}
                                             </td>
-                                            <td>{{ $post->post_excerpt }}</td>
+                                            <td>{{ substr($post->post_excerpt, 0, 30) }}...</td>
                                             <td>{{ $post->post_status }}</td>
                                             <td>
                                                 <a href="{{ route('admin.edit', $post->post_name) }}"

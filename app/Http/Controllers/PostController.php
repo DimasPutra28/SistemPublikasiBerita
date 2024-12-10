@@ -40,7 +40,7 @@ class PostController extends Controller
             // 'post_author' => auth()->id(),
             'post_date' => Carbon::now(),
             'post_date_gmt' => Carbon::now('GMT'),
-            'post_content' => substr(strip_tags($request->post_content), 0, 1000),
+            'post_content' => substr(strip_tags($request->post_content), 0, 10000),
             'post_title' => $request->post_title,
             'post_name' => $request->post_name,
             'post_excerpt' => substr(strip_tags($request->post_content), 0, 200),
@@ -80,8 +80,8 @@ class PostController extends Controller
         $post = Post::where('post_name', $post_name)->firstOrFail();
         $post->update([
             'post_title' => $request->post_title,
-            'post_content' => substr(strip_tags($request->post_content), 0, 1000),
-            'post_name' => $request->post_name,
+            'post_content' => substr(strip_tags($request->post_content), 0, 10000),
+            // 'post_name' => $request->post_name,
             'post_excerpt' => substr(strip_tags($request->post_content), 0, 200),
             'post_modified' => Carbon::now(),
             'post_modified_gmt' => Carbon::now('GMT'),

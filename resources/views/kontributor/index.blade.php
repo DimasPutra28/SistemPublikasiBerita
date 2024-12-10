@@ -274,7 +274,7 @@
                                         <th>Slug</th>
                                         <th>Postingan</th>
                                         <th>Jumlah View</th>
-                                        <th>Password</th>
+                                        <th>URL</th>
                                         <th>Tanggal Publish</th>
                                         <th>Tanggal Perubahan</th>
                                         <th>post_excerpt</th>
@@ -284,34 +284,34 @@
                                 </thead>
                                 <tbody class="table-border-bottom-0">
                                     @foreach ($posts as $post)
-                                        @if ($post->post_status == 'publish')
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $post->post_title }}</td>
-                                                <td>{{ $post->post_name }}</td>
-                                                <td>{{ $post->post_content }}</td>
-                                                <td>{{ $post->view_count }}</td>
-                                                <td>{{ $post->post_password }}</td>
-                                                <td>{{ $post->post_date }}</td>
-                                                <td>{{ $post->post_modified == '-' || is_null($post->post_modified) ? '-' : $post->post_modified }}
-                                                </td>
-                                                <td>{{ $post->post_excerpt }}</td>
-                                                <td>{{ $post->post_status }}</td>
-                                                <td>
-                                                    <a href="{{ route('post.edit', $post->post_name) }}"
-                                                        class="btn btn-sm btn-warning">Edit</a>
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $post->post_title }}</td>
+                                            <td>{{ $post->post_name }}</td>
+                                            <td>{{ substr($post->post_content, 0, 30) }}...</td>
+                                            <td>{{ $post->view_count }}</td>
+                                            <td><a href="{{ $post->guid }}">{{ $post->guid }}</a></td>
+                                            <td>{{ $post->post_date }}</td>
+                                            <td>{{ $post->post_modified == '-' || is_null($post->post_modified) ? '-' : $post->post_modified }}
+                                            </td>
+                                            <td>{{ substr($post->post_excerpt, 0, 30) }}...</td>
+                                            <td>{{ $post->post_status }}</td>
+                                            <td>
+                                                <a href="{{ route('post.edit', $post->post_name) }}"
+                                                    class="btn btn-sm btn-warning">Edit</a>
+                                                @if ($post->post_status == 'publish')
                                                     <a href="{{ route('post.show', $post->post_name) }}"
                                                         class="btn btn-sm btn-info">View</a>
-                                                    <form action="{{ route('post.destroy', $post->post_name) }}" method="POST"
-                                                        style="display:inline;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger"
-                                                            onclick="return confirm('Hapus postingan ini?')">Hapus</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        @endif
+                                                @endif
+                                                <form action="{{ route('post.destroy', $post->post_name) }}"
+                                                    method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger"
+                                                        onclick="return confirm('Hapus postingan ini?')">Hapus</button>
+                                                </form>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
