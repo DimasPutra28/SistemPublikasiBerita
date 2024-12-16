@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    public function index()
+    {
+        return view('admin.dashboard');
+    }
+
     public function dashboardadmin()
     {
         $posts = Post::orderBy('post_date', 'desc')->get();
@@ -81,8 +87,8 @@ class AdminController extends Controller
             'comment_status' => $request->comment_status,
             'post_status' => $request->post_status,
             'guid' => $request->post_status === 'publish'
-            ? url('/post/' . $request->post_name) // Generate URL jika status publish
-            : $post->guid, // Biarkan tidak berubah jika status bukan publish
+                ? url('/post/' . $request->post_name) // Generate URL jika status publish
+                : $post->guid, // Biarkan tidak berubah jika status bukan publish
         ]);
 
         return redirect()->route('admin.dash')->with('success', 'Postingan berhasil diupdate.');

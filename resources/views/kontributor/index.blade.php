@@ -8,7 +8,7 @@
                     <div class="d-flex align-items-end row">
                         <div class="col-sm-7">
                             <div class="card-body">
-                                <h5 class="card-title text-primary">Congratulations John! 🎉</h5>
+                                <h5 class="card-title text-primary">Welcome {{ Auth::user()->display_name }}! 🎉</h5>
                                 <p class="mb-4">
                                     You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
                                     your profile.
@@ -88,52 +88,9 @@
             <div class="col-md-6 col-lg-8 order-1 mb-4">
                 <div class="card h-100">
                     <div class="card-header">
-                        <ul class="nav nav-pills" role="tablist">
-                            <li class="nav-item">
-                                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
-                                    data-bs-target="#navs-tabs-line-card-income" aria-controls="navs-tabs-line-card-income"
-                                    aria-selected="true">
-                                    Income
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button type="button" class="nav-link" role="tab">Expenses</button>
-                            </li>
-                            <li class="nav-item">
-                                <button type="button" class="nav-link" role="tab">Profit</button>
-                            </li>
-                        </ul>
+                        <h3>Jumlah View Artikel</h3>
                     </div>
                     <div class="card-body px-0">
-                        <div class="tab-content p-0">
-                            <div class="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
-                                <div class="d-flex p-4 pt-3">
-                                    <div class="avatar flex-shrink-0 me-3">
-                                        <img src="../assets/img/icons/unicons/wallet.png" alt="User" />
-                                    </div>
-                                    <div>
-                                        <small class="text-muted d-block">Total Balance</small>
-                                        <div class="d-flex align-items-center">
-                                            <h6 class="mb-0 me-1">$459.10</h6>
-                                            <small class="text-success fw-semibold">
-                                                <i class="bx bx-chevron-up"></i>
-                                                42.9%
-                                            </small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="incomeChart"></div>
-                                <div class="d-flex justify-content-center pt-4 gap-2">
-                                    <div class="flex-shrink-0">
-                                        <div id="expensesOfWeek"></div>
-                                    </div>
-                                    <div>
-                                        <p class="mb-n1 mt-1">Expenses This Week</p>
-                                        <small class="text-muted">$39 less than last week</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -270,6 +227,7 @@
                                 <thead>
                                     <tr>
                                         <th>ID Post</th>
+                                        <th>Author</th>
                                         <th>Judul</th>
                                         <th>Slug</th>
                                         <th>Postingan</th>
@@ -286,6 +244,8 @@
                                     @foreach ($posts as $post)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $post->author->display_name }}</td>
+                                            {{-- <td>{{ $post->post_author }}</td> --}}
                                             <td>{{ $post->post_title }}</td>
                                             <td>{{ $post->post_name }}</td>
                                             <td>{{ substr($post->post_content, 0, 30) }}...</td>
@@ -321,3 +281,4 @@
             </div>
         </div>
     @endsection
+

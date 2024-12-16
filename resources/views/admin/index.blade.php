@@ -8,7 +8,7 @@
                     <div class="d-flex align-items-end row">
                         <div class="col-sm-7">
                             <div class="card-body">
-                                <h5 class="card-title text-primary">Congratulations John! 🎉</h5>
+                                <h5 class="card-title text-primary">Welcome {{ Auth::user()->display_name }}!  🎉</h5>
                                 <p class="mb-4">
                                     You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
                                     your profile.
@@ -270,6 +270,7 @@
                                 <thead>
                                     <tr>
                                         <th>ID Post</th>
+                                        <th>Author</th>
                                         <th>Judul</th>
                                         <th>Slug</th>
                                         <th>Postingan</th>
@@ -287,6 +288,7 @@
                                     @foreach ($posts as $post)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $post->author->display_name }}</td>
                                             <td>{{ $post->post_title }}</td>
                                             <td>{{ $post->post_name }}</td>
                                             <td>{{ substr($post->post_content, 0, 30) }}...</td>

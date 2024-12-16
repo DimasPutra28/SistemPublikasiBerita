@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('post', function (Blueprint $table) {
             $table->id();
-            // $table->bigInteger('post_author');
+            $table->foreignId('post_author')->constrained('users')->onDelete('cascade'); // Relasi ke tabel users
             $table->dateTime('post_date');
             $table->dateTime('post_date_gmt');
             $table->longtext('post_content');

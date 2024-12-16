@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use function Pest\Laravel\session;
 
@@ -12,7 +14,10 @@ class PostController extends Controller
 {
     public function dashboardkontributor()
     {
-        $posts = Post::orderBy('view_count', 'desc')->paginate(5);
+        $posts = Post::select('post_title', 'view_count')->get();
+        $posts = Post::where('post_author', Auth::id())
+            ->orderBy('view_count', 'desc')
+            ->paginate(20);
         return view('kontributor.index', compact('posts'));
     }
 
@@ -37,13 +42,14 @@ class PostController extends Controller
 
 
         $pos = Post::create([
-            // 'post_author' => auth()->id(),
+            'post_author' => auth()->id(),
             'post_date' => Carbon::now(),
             'post_date_gmt' => Carbon::now('GMT'),
-            'post_content' => substr(strip_tags($request->post_content), 0, 10000),
+            // 'post_content' => substr(strip_tags($request->post_content), 0, 10000),
+            'post_content' => $request->post_content,
             'post_title' => $request->post_title,
             'post_name' => $request->post_name,
-            'post_excerpt' => substr(strip_tags($request->post_content), 0, 200),
+            'post_excerpt' => substr(strip_tags($request->post_content), 0, 10000),
             'post_status' => 'draft',
             'comment_status' => 'open',
             'ping_status' => 'open',
@@ -80,9 +86,10 @@ class PostController extends Controller
         $post = Post::where('post_name', $post_name)->firstOrFail();
         $post->update([
             'post_title' => $request->post_title,
-            'post_content' => substr(strip_tags($request->post_content), 0, 10000),
+            // 'post_content' => substr(strip_tags($request->post_content), 0, 10000),
+            'post_content' => $request->post_content, // Update konten tanpa manipulasi
             // 'post_name' => $request->post_name,
-            'post_excerpt' => substr(strip_tags($request->post_content), 0, 200),
+            'post_excerpt' => substr(strip_tags($request->post_content), 0, 10000),
             'post_modified' => Carbon::now(),
             'post_modified_gmt' => Carbon::now('GMT'),
         ]);
@@ -107,5 +114,23 @@ class PostController extends Controller
 
         // Kembalikan view dengan data postingan
         return view('kontributor.view', compact('post'));
+    }
+
+    public function upload(Request $request)
+    {
+
+        if ($request->hasFile('upload')) {
+
+            $originName = $request->file('upload')->getClientOriginalName();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $fileName = $fileName . '_' . time() . '.' . $extension;
+            $request->file('upload')->move(public_path('media'), $fileName);
+
+            $url = asset('media/' . $fileName);
+            return response()->json([
+                'fileName' => $fileName, 'uploaded' => 1, 'url' => $url
+            ]);
+        }
     }
 }

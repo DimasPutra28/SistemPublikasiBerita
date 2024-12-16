@@ -10,7 +10,7 @@ class Post extends Model
     use HasFactory;
     protected $table = 'post';
     protected $fillable = [
-        // 'post_author',
+        'post_author',
         'post_date',
         'post_date_gmt',
         'post_content',
@@ -35,10 +35,14 @@ class Post extends Model
         'view_count',
     ];
 
-    protected $casts = [
-        'post_date' => 'datetime',
-        'post_date_gmt' => 'datetime',
-        'post_modified' => 'datetime',
-        'post_modified_gmt' => 'datetime',
-    ];
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'post_author'); // Asumsi 'post_author' adalah kolom foreign key di tabel posts
+    }
+    // protected $casts = [
+    //     'post_date' => 'datetime',
+    //     'post_date_gmt' => 'datetime',
+    //     'post_modified' => 'datetime',
+    //     'post_modified_gmt' => 'datetime',
+    // ];
 }

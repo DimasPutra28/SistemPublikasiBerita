@@ -2,17 +2,12 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -20,14 +15,27 @@ class User extends Authenticatable implements FilamentUser
      *
      * @var array<int, string>
      */
+
+
+    protected $table = 'users'; // Nama tabel
+
+    protected $primaryKey = 'ID'; // Kolom primary key
+
     protected $fillable = [
-        'name',
-        'email',
-        'no_hp',
-        'role',
-        'is_active',
+        'user_login',
         'password',
+        'email',
+        'user_nicename',
+        'display_name',
+        'role',
+        'user_registered',
     ];
+    
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'post_author');
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -35,14 +43,14 @@ class User extends Authenticatable implements FilamentUser
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        'password', // Sembunyikan kolom password
         'remember_token',
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
-     * @return array<string, string>
+     * @var array<string, string>
      */
     protected function casts(): array
     {
@@ -52,17 +60,24 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return match ($panel->getId()) {
-            'admin' => $this->role === 'admin',
-            'contributor' => $this->role === 'contributor',
-            default => false,
-        };
-    }
+//     public function getAuthPassword()
+// {
+//     return $this->password; // Jika kolom password di database adalah 'password'
+// }
 
-    public function articles()
-    {
-        return $this->hasMany(Article::class);
-    }
+// public function getAuthIdentifierName()
+// {
+//     return 'email'; // Ganti dengan nama kolom yang Anda gunakan
+// }
+
+
+
+// public function username()
+// {
+//     return 'email'; // Gunakan user_email sebagai username
+// }
+
+
+
+
 }
