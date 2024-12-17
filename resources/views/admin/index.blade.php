@@ -277,7 +277,7 @@
                                         <th>Comment Status</th>
                                         <th>Status Postingan</th>
                                         <th>URL</th>
-                                        <th>Tanggal Publish</th>
+                                        <th>Tanggal Submit Postingan</th>
                                         <th>Tanggal Perubahan</th>
                                         <th>post_excerpt</th>
                                         <th>post_Status</th>

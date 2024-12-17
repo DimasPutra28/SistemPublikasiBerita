@@ -6,12 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.dashboard');
+        // Ambil semua postingan dengan status 'publish' dan urutkan berdasarkan tanggal terbaru
+        $posts = Post::orderBy('post_date', 'desc')->get();
+        return view('admin.postalladmin', compact('posts'));
     }
 
     public function dashboardadmin()
@@ -79,9 +82,11 @@ class AdminController extends Controller
             'post_status' => 'required|in:draft,publish',
         ]);
         $post = Post::where('post_name', $post_name)->firstOrFail();
+        $post_date = $request->post_status === 'publish' ? Carbon::now() : null;
         $post->update([
             'post_title' => $request->post_title,
             'post_content' => substr(strip_tags($request->post_content), 0, 10000),
+            'post_date' => $post_date, // Tanggal publish jika publish
             'post_name' => $request->post_name,
             'post_excerpt' => substr(strip_tags($request->post_content), 0, 200),
             'comment_status' => $request->comment_status,

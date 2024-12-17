@@ -85,129 +85,48 @@
 
         <div class="row">
             <!-- Expense Overview -->
-            <div class="col-md-6 col-lg-8 order-1 mb-4">
+            <div class="col-md-6 col-lg-10 order-1 mb-4">
                 <div class="card h-100">
                     <div class="card-header">
                         <h3>Jumlah View Artikel</h3>
                     </div>
                     <div class="card-body px-0">
+                        <div class="table-responsive text-nowrap">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID Post</th>
+                                        <th>Jumlah View</th>
+                                        <th>Judul</th>
+                                        <th>Tanggal Postingan</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-border-bottom-0">
+                                    @foreach ($posts as $post)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $post->view_count }}</td>
+                                            <td>{{ $post->post_title }}</td>
+                                            <td>{{ $post->post_date }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
             <!--/ Expense Overview -->
 
             <!-- Transactions -->
-            <div class="col-md-6 col-lg-4 order-2 mb-4">
+            <div class="col-md-6 col-lg-2 order-2 mb-4">
                 <div class="card h-100">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                        <h5 class="card-title m-0 me-2">Transactions</h5>
-                        <div class="dropdown">
-                            <button class="btn p-0" type="button" id="transactionID" data-bs-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
-                                <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
-                            </div>
-                        </div>
+                        <h5 class="card-title m-0 me-2"></h5>
+
                     </div>
                     <div class="card-body">
-                        <ul class="p-0 m-0">
-                            <li class="d-flex mb-4 pb-1">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <img src="../assets/img/icons/unicons/paypal.png" alt="User" class="rounded" />
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <small class="text-muted d-block mb-1">Paypal</small>
-                                        <h6 class="mb-0">Send money</h6>
-                                    </div>
-                                    <div class="user-progress d-flex align-items-center gap-1">
-                                        <h6 class="mb-0">+82.6</h6>
-                                        <span class="text-muted">USD</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="d-flex mb-4 pb-1">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <img src="../assets/img/icons/unicons/wallet.png" alt="User" class="rounded" />
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <small class="text-muted d-block mb-1">Wallet</small>
-                                        <h6 class="mb-0">Mac'D</h6>
-                                    </div>
-                                    <div class="user-progress d-flex align-items-center gap-1">
-                                        <h6 class="mb-0">+270.69</h6>
-                                        <span class="text-muted">USD</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="d-flex mb-4 pb-1">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <img src="../assets/img/icons/unicons/chart.png" alt="User" class="rounded" />
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <small class="text-muted d-block mb-1">Transfer</small>
-                                        <h6 class="mb-0">Refund</h6>
-                                    </div>
-                                    <div class="user-progress d-flex align-items-center gap-1">
-                                        <h6 class="mb-0">+637.91</h6>
-                                        <span class="text-muted">USD</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="d-flex mb-4 pb-1">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <img src="../assets/img/icons/unicons/cc-success.png" alt="User"
-                                        class="rounded" />
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <small class="text-muted d-block mb-1">Credit Card</small>
-                                        <h6 class="mb-0">Ordered Food</h6>
-                                    </div>
-                                    <div class="user-progress d-flex align-items-center gap-1">
-                                        <h6 class="mb-0">-838.71</h6>
-                                        <span class="text-muted">USD</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="d-flex mb-4 pb-1">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <img src="../assets/img/icons/unicons/wallet.png" alt="User" class="rounded" />
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <small class="text-muted d-block mb-1">Wallet</small>
-                                        <h6 class="mb-0">Starbucks</h6>
-                                    </div>
-                                    <div class="user-progress d-flex align-items-center gap-1">
-                                        <h6 class="mb-0">+203.33</h6>
-                                        <span class="text-muted">USD</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="d-flex">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <img src="../assets/img/icons/unicons/cc-warning.png" alt="User"
-                                        class="rounded" />
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <small class="text-muted d-block mb-1">Mastercard</small>
-                                        <h6 class="mb-0">Ordered Food</h6>
-                                    </div>
-                                    <div class="user-progress d-flex align-items-center gap-1">
-                                        <h6 class="mb-0">-92.45</h6>
-                                        <span class="text-muted">USD</span>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+
                     </div>
                 </div>
             </div>
@@ -217,7 +136,7 @@
         <div class="row">
             <div class="col-lg-12 mb-4">
                 <div class="card">
-                    <h5 class="card-header">Daftar Postingan</h5>
+                    <h5 class="card-header">Daftar Postingan Teratas</h5>
                     <div class="card-body">
                         @if (session('success'))
                             <div class="alert alert-success">{{ session('success') }}</div>
@@ -245,13 +164,12 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $post->author->display_name }}</td>
-                                            {{-- <td>{{ $post->post_author }}</td> --}}
-                                            <td>{{ $post->post_title }}</td>
+                                            <td>{{ Str::limit($post->post_title, 8, '...') }}</td>
                                             <td>{{ $post->post_name }}</td>
                                             <td>{{ substr($post->post_content, 0, 30) }}...</td>
                                             <td>{{ $post->view_count }}</td>
                                             <td><a href="{{ $post->guid }}">{{ $post->guid }}</a></td>
-                                            <td>{{ $post->post_date }}</td>
+                                            <td>{{ $post->post_status === 'publish' ? $post->post_date : '-' }}</td>
                                             <td>{{ $post->post_modified == '-' || is_null($post->post_modified) ? '-' : $post->post_modified }}
                                             </td>
                                             <td>{{ substr($post->post_excerpt, 0, 30) }}...</td>
@@ -281,4 +199,3 @@
             </div>
         </div>
     @endsection
-

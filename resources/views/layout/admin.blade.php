@@ -132,7 +132,7 @@
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="forms-input-groups.html" class="menu-link">
+                                <a href="{{ route('admin.postall') }}" class="menu-link">
                                     <div data-i18n="Input groups">Lihat Semua Postingan</div>
                                 </a>
                             </li>

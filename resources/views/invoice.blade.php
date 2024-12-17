@@ -10,13 +10,13 @@
 
 <body>
 
-    <h1>Invoice</h1>
-    <p>Nama: {{ $Pengirim->nama }}</p>
-    <p>No WA: {{ $Pengirim->no_wa }}</p>
-    <p>Email: {{ $Pengirim->email }}</p>
-    <p>Judul Berita: {{ $Pengirim->judul_berita }}</p>
-    <p>Tanggal: {{ $Pengirim->tanggal }}</p>
-    <p>Paket: {{ $Pengirim->paket }}</p>
+    <p>Nomor Invoice: </p>
+    <p>Nama: {{ $pengirim->nama }}</p>
+    <p>No WA: {{ $pengirim->no_wa }}</p>
+    <p>Email: {{ $pengirim->email }}</p>
+    <p>Judul Berita: {{ $pengirim->judul_berita }}</p>
+    <p>Tanggal: {{ $pengirim->tanggal }}</p>
+    <p>Paket: {{ $pengirim->paket }}</p>
 
 </body>
 

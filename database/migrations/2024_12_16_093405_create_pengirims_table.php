@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->string('paket');
             $table->string('bukti_bayar')->default('-');
+            $table->string('nomor_invoice')->nullable();
             $table->timestamps();
         });
     }

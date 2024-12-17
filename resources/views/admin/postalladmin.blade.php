@@ -1,4 +1,4 @@
-@extends('layout.template')
+@extends('layout.admin')
 
 @section('dashboard')
     <div class="container-xxl flex-grow-1 container-p-y">
@@ -21,7 +21,7 @@
                                         <th>Postingan</th>
                                         <th>Jumlah View</th>
                                         <th>URL</th>
-                                        <th>Tanggal Publish</th>
+                                        <th>Tanggal Submit Postingan</th>
                                         <th>Tanggal Perubahan</th>
                                         <th>post_excerpt</th>
                                         <th>post_Status</th>
@@ -39,19 +39,15 @@
                                             <td>{{ substr($post->post_content, 0, 30) }}...</td>
                                             <td>{{ $post->view_count }}</td>
                                             <td><a href="{{ $post->guid }}">{{ $post->guid }}</a></td>
-                                            <td>{{ $post->post_status === 'publish' ? $post->post_date : '-' }}</td>
+                                            <td>{{$post->post_date}}</td>
                                             <td>{{ $post->post_modified == '-' || is_null($post->post_modified) ? '-' : $post->post_modified }}
                                             </td>
                                             <td>{{ substr($post->post_excerpt, 0, 30) }}...</td>
                                             <td>{{ $post->post_status }}</td>
                                             <td>
-                                                <a href="{{ route('post.edit', $post->post_name) }}"
+                                                <a href="{{ route('admin.edit', $post->post_name) }}"
                                                     class="btn btn-sm btn-warning">Edit</a>
-                                                @if ($post->post_status == 'publish')
-                                                    <a href="{{ route('post.show', $post->post_name) }}"
-                                                        class="btn btn-sm btn-info">View</a>
-                                                @endif
-                                                <form action="{{ route('post.destroy', $post->post_name) }}"
+                                                <form action="{{ route('admin.destroy', $post->post_name) }}"
                                                     method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')

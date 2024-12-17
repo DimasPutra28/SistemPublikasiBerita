@@ -14,7 +14,7 @@ class PostController extends Controller
 {
     public function dashboardkontributor()
     {
-        $posts = Post::select('post_title', 'view_count')->get();
+        // $posts = Post::select('post_title', 'view_count')->get();
         $posts = Post::where('post_author', Auth::id())
             ->orderBy('view_count', 'desc')
             ->paginate(20);
@@ -23,7 +23,8 @@ class PostController extends Controller
 
     public function postkontributor()
     {
-        $posts = Post::orderBy('view_count', 'desc')->get();
+        $posts = Post::where('post_author', Auth::id())
+                    ->orderBy('view_count', 'desc')->get();
         return view('kontributor.postall', compact('posts'));
     }
 
@@ -43,8 +44,8 @@ class PostController extends Controller
 
         $pos = Post::create([
             'post_author' => auth()->id(),
-            'post_date' => Carbon::now(),
-            'post_date_gmt' => Carbon::now('GMT'),
+            'post_date' => '-',
+            'post_date_gmt' => '-',
             // 'post_content' => substr(strip_tags($request->post_content), 0, 10000),
             'post_content' => $request->post_content,
             'post_title' => $request->post_title,
