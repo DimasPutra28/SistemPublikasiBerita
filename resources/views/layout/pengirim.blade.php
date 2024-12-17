@@ -8,7 +8,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Admin Berita Dashboard </title>
+    <title>Form Pengirim Berita </title>
 
     <meta name="description" content="" />
 
@@ -99,7 +99,7 @@
                                 </g>
                             </svg>
                         </span>
-                        <span class="app-brand-text demo menu-text fw-bolder ms-2">Admin</span>
+                        <span class="app-brand-text demo menu-text fw-bolder ms-2">News Sender</span>
                     </a>
 
                     <a href="javascript:void(0);"
@@ -113,36 +113,13 @@
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
                     <li class="menu-item active">
-                        <a href="{{ route('admin.dash') }}" class="menu-link">
+                        <a href="/form" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
                             <div data-i18n="Analytics">Dashboard</div>
                         </a>
                     </li>
 
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-detail"></i>
-                            <div data-i18n="Form Elements">Postingan</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
 
-                                <a href="{{ route('admin.add') }}" class="menu-link" >
-                                    <div data-i18n="Basic Inputs">Tambahkan Postingan</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="{{ route('admin.postall') }}" class="menu-link">
-                                    <div data-i18n="Input groups">Lihat Semua Postingan</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="/pengirim" class="menu-link">
-                                    <div data-i18n="Input groups">Lihat jumlah pengirim berita</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
             </aside>
             <!-- / Menu -->

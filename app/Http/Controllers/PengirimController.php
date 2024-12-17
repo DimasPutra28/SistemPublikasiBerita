@@ -6,7 +6,7 @@ use App\Models\Pengirim;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
-
+use Illuminate\Support\Facades\Storage;
 
 class PengirimController extends Controller
 {
@@ -48,7 +48,7 @@ class PengirimController extends Controller
     public function generateInvoice($id)
     {
         $pengirim = Pengirim::findOrFail($id);
-        $pdf = pdf::loadView('invoice', ['Pengirim' => $pengirim]);
+        $pdf = pdf::loadView('invoice', ['pengirim' => $pengirim]);
         return $pdf->stream('invoice.pdf');
     }
 
@@ -84,5 +84,20 @@ class PengirimController extends Controller
         });
 
         return redirect()->back()->with('success', 'Kwitansi berhasil dikirim!');
+    }
+
+    public function downloadFile($id)
+    {
+        $pengirim = Pengirim::findOrFail($id);
+
+        // Cek apakah file hasil ada
+        if (!$pengirim->hasil || !Storage::exists('public/' . $pengirim->hasil->file_hasil)) {
+            return redirect()->back()->with('error', 'File tidak ditemukan.');
+        }
+
+        $filePath = 'public/' . $pengirim->hasil->file_hasil;
+        $fileName = basename($pengirim->hasil->file_hasil);
+
+        return Storage::download($filePath, $fileName);
     }
 }

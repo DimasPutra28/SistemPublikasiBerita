@@ -28,19 +28,21 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/adminnews/{post_name}/edit', [AdminController::class, 'editadmin'])->name('admin.edit');
     Route::put('/adminnews/{post_name}/update', [AdminController::class, 'updateadmin'])->name('admin.update');
     Route::delete('/adminnews/{post_name}', [AdminController::class, 'destroyadmin'])->name('admin.destroy');
+    Route::get('/pengirim', [PengirimController::class, 'showTable']);
+    Route::post('/send-kwitansi/{id}', [PengirimController::class, 'sendKwitansi']);
 });
 
 
 Route::post('/upload', [PostController::class, 'upload'])->name('ckeditor.upload');
 
+Route::get('/download/{id}', [PengirimController::class, 'downloadFile'])->name('file.download');
 
 
 Route::get('/form', [PengirimController::class, 'index']);
 Route::post('/form/simpan', [PengirimController::class, 'store']);
 Route::get('/invoice/{id}', [PengirimController::class, 'generateInvoice']);
 Route::post('/upload-bukti/{id}', [PengirimController::class, 'uploadBuktiBayar']);
-Route::get('/pengirim', [PengirimController::class, 'showTable']);
-Route::post('/send-kwitansi/{id}', [PengirimController::class, 'sendKwitansi']);
+
 
 
 

@@ -47,6 +47,12 @@
         </div>
         <div class="flex items-center mb-2 mt-1 justify-center">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                href="/form">
+                {{ __('news sender? Click here') }}
+            </a>
+        </div>
+        <div class="flex items-center mb-2 mt-1 justify-center">
+            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 href="{{ route('register') }}">
                 {{ __('Click here if you haven`t registered yet ?') }}
             </a>

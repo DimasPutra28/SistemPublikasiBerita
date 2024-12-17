@@ -10,7 +10,7 @@
 
 <body>
 
-    <p>Nomor Invoice: </p>
+    {{-- <p>Nomor Invoice: </p> --}}
     <p>Nama: {{ $pengirim->nama }}</p>
     <p>No WA: {{ $pengirim->no_wa }}</p>
     <p>Email: {{ $pengirim->email }}</p>

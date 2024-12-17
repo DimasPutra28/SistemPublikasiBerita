@@ -44,8 +44,8 @@ class PostController extends Controller
 
         $pos = Post::create([
             'post_author' => auth()->id(),
-            'post_date' => '-',
-            'post_date_gmt' => '-',
+            'post_date' => Carbon::now(),
+            'post_date_gmt' => Carbon::now('GMT'),
             // 'post_content' => substr(strip_tags($request->post_content), 0, 10000),
             'post_content' => $request->post_content,
             'post_title' => $request->post_title,
