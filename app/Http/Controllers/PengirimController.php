@@ -25,6 +25,8 @@ class PengirimController extends Controller
             'file_path' => 'required|file',
             'tanggal' => 'required|date',
             'paket' => 'required',
+            'harga' => 'required',
+            'metodebayar' => 'required',
         ]);
 
         $filePath = $request->file('file_path')->store('uploads', 'public');
@@ -36,6 +38,8 @@ class PengirimController extends Controller
             'file_path' => $filePath,
             'tanggal' => $request->tanggal,
             'paket' => $request->paket,
+            'harga' => $request->harga,
+            'metodebayar' => $request->metodebayar,
         ]);
 
         // Generate nomor invoice
@@ -48,7 +52,7 @@ class PengirimController extends Controller
     public function generateInvoice($id)
     {
         $pengirim = Pengirim::findOrFail($id);
-        $pdf = pdf::loadView('invoice', ['pengirim' => $pengirim]);
+        $pdf = pdf::loadView('invoice', ['pengirim' => $pengirim])->setPaper('a5', 'landscape');
         return $pdf->stream('invoice.pdf');
     }
 
@@ -74,7 +78,7 @@ class PengirimController extends Controller
         // Cari data pengirim berdasarkan ID
         $pengirim = Pengirim::findOrFail($id);
         // Generate PDF
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('invoice', compact('pengirim'));
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('buktikwitansi', compact('pengirim'))->setPaper('a4', 'landscape');
 
         // Kirim Email
         Mail::send([], [], function ($message) use ($pengirim, $pdf) {
@@ -84,20 +88,5 @@ class PengirimController extends Controller
         });
 
         return redirect()->back()->with('success', 'Kwitansi berhasil dikirim!');
-    }
-
-    public function downloadFile($id)
-    {
-        $pengirim = Pengirim::findOrFail($id);
-
-        // Cek apakah file hasil ada
-        if (!$pengirim->hasil || !Storage::exists('public/' . $pengirim->hasil->file_hasil)) {
-            return redirect()->back()->with('error', 'File tidak ditemukan.');
-        }
-
-        $filePath = 'public/' . $pengirim->hasil->file_hasil;
-        $fileName = basename($pengirim->hasil->file_hasil);
-
-        return Storage::download($filePath, $fileName);
     }
 }

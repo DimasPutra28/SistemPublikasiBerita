@@ -16,5 +16,7 @@ class Pengirim extends Model
         'tanggal',
         'paket',
         'bukti_bayar',
+        'harga',
+        'metodebayar',
     ];
 }

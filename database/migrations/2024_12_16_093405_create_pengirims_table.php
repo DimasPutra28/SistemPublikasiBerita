@@ -20,8 +20,10 @@ return new class extends Migration
             $table->string('file_path');
             $table->date('tanggal');
             $table->string('paket');
-            $table->string('bukti_bayar')->default('-');
+            $table->string('harga');
+            $table->string('metodebayar');
             $table->string('nomor_invoice')->nullable();
+            $table->string('bukti_bayar')->default('-');
             $table->timestamps();
         });
     }

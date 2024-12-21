@@ -38,14 +38,16 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="tanggal" class="form-label">Tanggal</label>
-                                <select class="form-select" name="paket" id="paketBerita" onchange="handlePaketChange()"
+                                <label for="paket" class="form-label">Paket Berita</label>
+                                <select class="form-select" name="paket" id="paketBerita" onchange="handlePaketChange(); updateHarga()"
                                     required>
                                     <option value="" disabled selected>Pilih Paket Berita</option>
-                                    <option value="reguler">Paket Reguler - Rp 50.000</option>
-                                    <option value="cepat">Paket Cepat - Rp 100.000</option>
-                                    <option value="brandingReguler">Paket Branding Reguler - Rp 300.000</option>
-                                    <option value="brandingCepat">Paket Branding Cepat - Rp 500.000</option>
+                                    <option value="Paket Reguler - Rp 50.000">Paket Reguler - Rp 50.000</option>
+                                    <option value="Paket Cepat - Rp 100.000">Paket Cepat - Rp 100.000</option>
+                                    <option value="Paket Branding Reguler - Rp 300.000">Paket Branding Reguler - Rp 300.000
+                                    </option>
+                                    <option value="Paket Branding Cepat - Rp 500.000">Paket Branding Cepat - Rp 500.000
+                                    </option>
                                 </select>
                             </div>
                             <!-- Keterangan Paket -->
@@ -53,25 +55,36 @@
                                 <label class="form-label">Keterangan Paket</label>
                                 <div id="keteranganPaketContent" class="alert alert-info"></div>
                             </div>
-                            {{-- <select name="paket" required>
-                                <option value="A">Paket A</option>
-                                <option value="B">Paket B</option>
-                                <option value="C">Paket C</option>
-                            </select> --}}
-                            <button type="submit">Submit</button>
+
+                            <div class="mb-3">
+                                <label for="harga" class="form-label" hidden>Harga</label>
+                                <input type="text" class="form-control" id="harga" name="harga" readonly hidden>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="metodebayar" class="form-label">Metode Pembayaran</label>
+                                <select class="form-select" name="metodebayar" id="metodebayar" required>
+                                    <option value="" disabled selected>Pilih Paket Berita</option>
+                                    <option value="TransferVirtualAccount Mandiri - 00987654321">Mandiri</option>
+                                    <option value="E-Wallet Shopeepay - 01234567890">Shopeepay</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
 
                         <div id="invoiceSection" style="display: none;">
-                            <div class="mb-3">
-                                <label for="invoice" class="form-label">Invoice</label>
-                                <a id="viewInvoice" href="#" target="_blank">Lihat Invoice</a>
+                            <div class="mb-3 mt-3">
+                                <label for="invoice" class="form-label">Invoice: </label>
+                                <a id="viewInvoice" href="#" target="_blank">Lihat Invoice Disini</a>
                             </div>
                             <div class="mb-3">
                                 <form id="buktiBayarForm" action="{{ url('/upload-bukti/') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
+                                    <label for="bukti_bayar" class="form-label">Upload Bukti Pembayaran: </label>
                                     <input type="file" class="form-control" name="bukti_bayar" required>
-                                    <button type="submit">Upload Bukti Bayar</button>
+                                    <button type="submit" class="btn btn-secondary mt-3">Upload Bukti Bayar</button>
                                 </form>
                             </div>
                         </div>
@@ -82,6 +95,21 @@
     </div>
 
     <script>
+        function updateHarga() {
+            const paketBerita = document.getElementById("paketBerita").value;
+            const hargaInput = document.getElementById("harga");
+
+            // Ekstrak harga dari string
+            const harga = paketBerita.match(/Rp (\d+\.\d+)/); // Cari format Rp xxx.xxx
+            if (harga) {
+                hargaInput.value = harga[1].replace('.', ''); // Hapus titik dari angka
+            } else {
+                hargaInput.value = ''; // Jika tidak ada harga
+            }
+        }
+
+
+
         function handlePaketChange() {
             const paketBerita = document.getElementById("paketBerita").value;
             const keteranganPaket = document.getElementById("keteranganPaket");
@@ -90,21 +118,21 @@
             keteranganPaket.style.display = "block";
 
             // Menampilkan keterangan berdasarkan paket yang dipilih
-            if (paketBerita === "reguler") {
+            if (paketBerita === "Paket Reguler - Rp 50.000") {
                 keteranganPaketContent.innerHTML = `
                     <ul>
                         <li>1x Publikasi Berita Online.</li>
                         <li>Pengerjaan Maksimal 2x24 Jam.</li>
                         <li>Link Berita Aktif Selamanya.</li>
                     </ul>`;
-            } else if (paketBerita === "cepat") {
+            } else if (paketBerita === "Paket Cepat - Rp 100.000") {
                 keteranganPaketContent.innerHTML = `
                     <ul>
                         <li>1x Publikasi Berita Online.</li>
                         <li>Pengerjaan Maksimal 4 Jam.</li>
                         <li>Link Berita Aktif Selamanya.</li>
                     </ul>`;
-            } else if (paketBerita === "brandingReguler") {
+            } else if (paketBerita === "Paket Branding Reguler - Rp 300.000") {
                 keteranganPaketContent.innerHTML = `
                     <ul>
                         <li>1x Publikasi Berita Online.</li>
@@ -112,7 +140,7 @@
                         <li>Link Berita Aktif Selamanya.</li>
                         <li>Terindeks Google.</li>
                     </ul>`;
-            } else if (paketBerita === "brandingCepat") {
+            } else if (paketBerita === "Paket Branding Cepat - Rp 500.000") {
                 keteranganPaketContent.innerHTML = `
                     <ul>
                         <li>1x Publikasi Berita Online.</li>

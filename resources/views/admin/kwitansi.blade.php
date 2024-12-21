@@ -27,14 +27,25 @@
                                         <td>{{ $pengirim->email }}</td>
                                         <td>{{ $pengirim->judul_berita }}</td>
                                         <td>
-                                            <a href="{{ asset('storage/public/uploads/' . $pengirim->upload_file) }}" target="_blank">Lihat File</a>
+                                            @php
+                                                $filePath = $pengirim->file_path;
+                                                $fileUrl = asset('storage/' . $filePath);
+                                                $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
+                                            @endphp
+
+                                            @if (strtolower($fileExtension) === 'pdf')
+                                                <a href="{{ $fileUrl }}" target="_blank">Lihat File</a>
+                                            @else
+                                                <a href="{{ $fileUrl }}" download>Lihat File</a>
+                                            @endif
                                         </td>
+
                                         <td>{{ $pengirim->tanggal }}</td>
                                         <td>{{ $pengirim->paket }}</td>
                                         <td>
                                             <form action="{{ url('/send-kwitansi/' . $pengirim->id) }}" method="POST">
                                                 @csrf
-                                                <button type="submit">Send Kwitansi</button>
+                                                <button type="submit" class="btn btn-warning">Send Kwitansi</button>
                                             </form>
                                         </td>
                                     </tr>
