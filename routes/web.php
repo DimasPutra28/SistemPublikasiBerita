@@ -8,7 +8,7 @@ use App\Http\Controllers\PengirimController;
 use App\Http\Controllers\PostController;
 
 //kontributor
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'userMiddleware'])->group(function () {
     Route::get('/', [PostController::class, 'dashboardkontributor'])->name('post.dash');
     Route::get('/postview', [PostController::class, 'postkontributor'])->name('post.view');
     Route::get('/postnews', [PostController::class, 'tambahposting'])->name('post.add');
@@ -16,9 +16,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/post/{post_name}/edit', [PostController::class, 'editposting'])->name('post.edit');
     Route::put('/post/{post_name}/update', [PostController::class, 'updateposting'])->name('post.update');
     Route::delete('/postnews/{post}/delete', [PostController::class, 'destroyposting'])->name('post.destroy');
-    Route::get('/post/{post_name}', [PostController::class, 'show'])->name('post.show');
 });
 
+Route::get('/post/{post_name}', [PostController::class, 'show'])->name('post.show');
 // admin
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/postall', [AdminController::class, 'index'])->name('admin.postall');

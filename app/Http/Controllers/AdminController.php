@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pengirim;
 use App\Models\Post;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -20,7 +21,8 @@ class AdminController extends Controller
     public function dashboardadmin()
     {
         $posts = Post::orderBy('post_date', 'desc')->get();
-        return view('admin.index', compact('posts'));
+        $pengirim = Pengirim::orderBy('tanggal', 'desc')->get();
+        return view('admin.index', compact('posts','pengirim'));
     }
 
     public function tambahadmin()
@@ -39,8 +41,8 @@ class AdminController extends Controller
 
 
 
-        $pos = Post::create([
-            // 'post_author' => auth()->id(),
+        $post = Post::create([
+            'post_author' => auth()->id(),
             'post_date' => Carbon::now(),
             'post_date_gmt' => Carbon::now('GMT'),
             'post_content' => substr(strip_tags($request->post_content), 0, 10000),
@@ -56,7 +58,9 @@ class AdminController extends Controller
             'post_modified' => null, // Default ke NULL
             'post_modified_gmt' => null, // Default ke NULL
             'post_parent' => 0,
-            'guid' => '',
+            'guid' => $request->post_status === 'publish'
+                ? url('/post/' . $request->post_name) // Generate URL jika status publish
+                : $request->guid, // Biarkan tidak berubah jika status bukan publish,
             'menu_order' => 0,
             'post_type' => 'post',
             'post_mime_type' => '',

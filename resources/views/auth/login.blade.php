@@ -41,7 +41,7 @@
 
 
         <div class="flex items-center justify-center mt-4">
-            <x-primary-button class=" ">
+            <x-primary-button class="mr-4">
                 {{ __('Log in') }}
             </x-primary-button>
         </div>

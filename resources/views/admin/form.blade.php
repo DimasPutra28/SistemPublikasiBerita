@@ -40,7 +40,9 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-default-message">Postingan</label>
                                 <div class="col-sm-10">
-                                    <textarea name="post_content" class="ckeditor form-control" id="basic-default-message" cols="30" rows="10">{{ $post->post_content ?? old('post_content') }}</textarea>
+                                    <textarea name="post_content" class="ckeditor form-control" id="editor" cols="30" rows="10">
+                                        {{ $post->post_content ?? old('post_content') }}
+                                    </textarea>
                                 </div>
                             </div>
 
@@ -86,7 +88,8 @@
             </div>
         </div>
     </div>
-    <script src="/ckeditor4/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+    {{-- <script src="/ckeditor4/ckeditor.js"></script> --}}
     <script>
         // Fungsi untuk membuat slug secara otomatis dari judul
         function generateSlug() {
@@ -101,5 +104,17 @@
         }
 
         CKEDITOR.replace('basic-default-message');
+    </script>
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                ckfinder: {
+                    uploadUrl: "{{ route('ckeditor.upload', ['_token' => csrf_token()]) }}",
+                },
+            })
+            .catch(error => {
+                console.error(error);
+            });
     </script>
 @endsection
