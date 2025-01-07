@@ -130,21 +130,30 @@
                     <div class="table-responsive text-nowrap">
 
                         <table class="table table-responsive table-striped" style="text-align: center">
+                            <thead>
+                                <tr>
+                                    <td>No</td>
+                                    <td>Tanggal Transaksi</td>
+                                    <td>Nama Pengirim</td>
+                                    <td>Bukti Transaksi</td>
+                                </tr>
+                            </thead>
                             @foreach ($pengirim as $pgn)
-                                <thead>
-                                    <tr>
-                                        <td>No</td>
-                                        <td>Tanggal Transaksi</td>
-                                        <td>Nama Pengirim</td>
-                                        <td>Bukti Transaksi</td>
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $pgn->tanggal }}</td>
                                         <td>{{ $pgn->nama }}</td>
-                                        <td>{{ Str::limit($pgn->bukti_bayar, 10) }}</td>
+                                        <td>
+                                            @if ($pgn->bukti_bayar)
+                                                @php
+                                                    $buktiBayarUrl = asset('storage/' . $pgn->bukti_bayar);
+                                                @endphp
+                                                <a href="{{ $buktiBayarUrl }}" target="_blank">Lihat Bukti</a>
+                                            @else
+                                                <span class="text-danger">Belum Upload</span>
+                                            @endif
+                                        </td>
                                     </tr>
                                 </tbody>
                             @endforeach

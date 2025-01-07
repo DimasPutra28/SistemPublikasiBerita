@@ -44,6 +44,7 @@ class AuthenticatedSessionController extends Controller
             return redirect(route('admin.dash'));
         }
 
+
         return redirect()->intended(route('post.dash'));
     }
 

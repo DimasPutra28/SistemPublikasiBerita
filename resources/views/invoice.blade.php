@@ -33,7 +33,7 @@
         <p><b>Kepada : </b>{{ $pengirim->nama }}</p>
     </div>
 
-    <table style="border: 1px solid black;" border="1">
+    <table style="border:1px solid black;" border="1">
         <tr>
             <th style="width: 480px">Deskripsi</th>
             <th style="width: 100px">Jumlah</th>
@@ -48,16 +48,23 @@
 
     <table style="margin-top: 20px" >
         <tr>
-            <td  style="width: 500px">Pembayaran Melalui</td>
-            <td>Hormat Kami</td>
-        </tr>
-        <tr>
-            <td>{{ $pengirim->metodebayar }}</td>
+            <td style="width: 500px">Pembayaran Melalui</td>
             <td></td>
         </tr>
         <tr>
+            <td>{{ $pengirim->metodebayar }}
+
+            </td>
             <td></td>
-            <td style="height: 80px"></td>
+        </tr>
+        <tr>
+            <td>
+                <div style="margin-top: 10px;margin-left: 20px">
+                    <p>Scan Disini untuk Melakukan Pembayaran:</p>
+                    <img src="data:image/png;base64,{{ base64_encode($qrCode) }}" alt="QR Code">
+                </div>
+            </td>
+            <td style="height: 80px">Hormat Kami</td>
         </tr>
         <tr>
             <td></td>

@@ -16,6 +16,7 @@
                                     <th>File</th>
                                     <th>Tanggal</th>
                                     <th>Paket</th>
+                                    <th>Bukti Bayar</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -42,6 +43,16 @@
 
                                         <td>{{ $pengirim->tanggal }}</td>
                                         <td>{{ $pengirim->paket }}</td>
+                                        <td>
+                                            @if ($pengirim->bukti_bayar)
+                                                @php
+                                                    $buktiBayarUrl = asset('storage/' . $pengirim->bukti_bayar);
+                                                @endphp
+                                                <a href="{{ $buktiBayarUrl }}" target="_blank">Lihat Bukti</a>
+                                            @else
+                                                <span class="text-danger">Belum Upload</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             <form action="{{ url('/send-kwitansi/' . $pengirim->id) }}" method="POST">
                                                 @csrf

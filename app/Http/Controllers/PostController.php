@@ -12,6 +12,8 @@ use function Pest\Laravel\session;
 
 class PostController extends Controller
 {
+
+ 
     public function dashboardkontributor()
     {
         // $posts = Post::select('post_title', 'view_count')->get();
@@ -24,7 +26,7 @@ class PostController extends Controller
     public function postkontributor()
     {
         $posts = Post::where('post_author', Auth::id())
-                    ->orderBy('view_count', 'desc')->get();
+            ->orderBy('view_count', 'desc')->get();
         return view('kontributor.postall', compact('posts'));
     }
 

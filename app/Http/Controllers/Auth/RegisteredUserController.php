@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
+
 
 class RegisteredUserController extends Controller
 {
@@ -35,11 +37,15 @@ class RegisteredUserController extends Controller
             'password' => 'required|string|confirmed|min:8',
         ]);
 
+        // Ubah user_nicename menjadi slug
+        $slugNicename = Str::slug($request->user_nicename, '-');
+
         $user = User::create([
             'user_login' => $request->user_login,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'user_nicename' => $request->user_login,
+            'user_nicename' => $slugNicename, 
+            'user_url' => ' ',
             'display_name' => $request->user_login,
             'role' => 'user',
             'user_registered' => now(),
