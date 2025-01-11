@@ -13,12 +13,12 @@ use function Pest\Laravel\session;
 class PostController extends Controller
 {
 
- 
+
     public function dashboardkontributor()
     {
         // $posts = Post::select('post_title', 'view_count')->get();
         $posts = Post::where('post_author', Auth::id())
-            ->orderBy('view_count', 'desc')
+            ->orderBy('post_date', 'desc')
             ->paginate(20);
         return view('kontributor.index', compact('posts'));
     }
@@ -26,7 +26,7 @@ class PostController extends Controller
     public function postkontributor()
     {
         $posts = Post::where('post_author', Auth::id())
-            ->orderBy('view_count', 'desc')->get();
+            ->orderBy('post_date', 'desc')->get();
         return view('kontributor.postall', compact('posts'));
     }
 

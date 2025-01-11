@@ -61,7 +61,8 @@
             <td>
                 <div style="margin-top: 10px;margin-left: 20px">
                     <p>Scan Disini untuk Melakukan Pembayaran:</p>
-                    <img src="data:image/png;base64,{{ base64_encode($qrCode) }}" alt="QR Code">
+                    <img src="" alt="">
+                    {{-- <img src="data:image/png;base64,{{ base64_encode($qrCode) }}" alt="QR Code"> --}}
                 </div>
             </td>
             <td style="height: 80px">Hormat Kami</td>

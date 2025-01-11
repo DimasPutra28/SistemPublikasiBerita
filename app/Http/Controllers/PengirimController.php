@@ -63,29 +63,29 @@ class PengirimController extends Controller
         $pengirim = Pengirim::findOrFail($id);
 
         // Buat URL berdasarkan metode pembayaran
-        $paymentUrl = $this->getPaymentUrl($pengirim->metodebayar);
+        // $paymentUrl = $this->getPaymentUrl($pengirim->metodebayar);
 
         // Generate QR code
-        $qrCode = QrCode::size(200)->generate($paymentUrl);
+        // $qrCode = QrCode::size(200)->generate($paymentUrl);
 
         $pdf = pdf::loadView('invoice', [
-            'pengirim' => $pengirim,
-            'qrCode' => $qrCode,
+            'pengirim' => $pengirim
+            // 'qrCode' => $qrCode,
         ])->setPaper('a4', 'portrait');
 
         return $pdf->stream('invoice.pdf');
     }
 
-    private function getPaymentUrl($metodeBayar)
-    {
-        // Sesuaikan dengan URL pembayaran sebenarnya
-        if (str_contains($metodeBayar, 'Mandiri')) {
-            return 'https://bankmandiri.co.id/payment/virtual-account/00987654321';
-        } elseif (str_contains($metodeBayar, 'Shopeepay')) {
-            return 'https://www.youtube.com/';
-        }
-        return '#';
-    }
+    // private function getPaymentUrl($metodeBayar)
+    // {
+    //     // Sesuaikan dengan URL pembayaran sebenarnya
+    //     if (str_contains($metodeBayar, 'Mandiri')) {
+    //         return 'https://bankmandiri.co.id/payment/virtual-account/00987654321';
+    //     } elseif (str_contains($metodeBayar, 'Shopeepay')) {
+    //         return 'https://www.youtube.com/';
+    //     }
+    //     return '#';
+    // }
 
     public function uploadBuktiBayar(Request $request, $id)
     {

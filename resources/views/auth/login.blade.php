@@ -40,17 +40,19 @@
         </div>
 
 
+        <!-- Buttons -->
         <div class="flex items-center justify-center mt-4">
-            <x-primary-button class="mr-4">
+            <x-primary-button class="mr-4 ml-3">
                 {{ __('Log in') }}
             </x-primary-button>
-        </div>
-        <div class="flex items-center mb-2 mt-1 justify-center">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                href="/form">
-                {{ __('news sender? Click here') }}
+            {{-- <h2 class="ml-3">or</h2> --}}
+            <a href="{{ route('formpengirim') }}"
+                class="bg-gray-500 px-3 py-1 rounded-md ml-3 text-white border border-black hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                {{ __('Sign in as News Sender') }}
             </a>
         </div>
+
+
         <div class="flex items-center mb-2 mt-1 justify-center">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 href="{{ route('register') }}">

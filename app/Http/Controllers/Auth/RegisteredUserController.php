@@ -32,8 +32,8 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'user_login' => 'required|string|max:255|unique:users,user_login',
-            'email' => 'required|string|email|max:255|unique:users,email',
+            'user_login' => 'required|string|max:255|unique:wpvo_users,user_login',
+            'email' => 'required|string|email|max:255|unique:wpvo_users,email', // Validasi kolom baru
             'password' => 'required|string|confirmed|min:8',
         ]);
 
@@ -42,12 +42,11 @@ class RegisteredUserController extends Controller
 
         $user = User::create([
             'user_login' => $request->user_login,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'user_nicename' => $slugNicename, 
+            'email' => $request->email, // Simpan ke kolom baru
+            'password' => Hash::make($request->password), // Pastikan ini menggunakan Hash::make
+            'user_nicename' => $slugNicename,
             'user_url' => ' ',
             'display_name' => $request->user_login,
-            'role' => 'user',
             'user_registered' => now(),
         ]);
 

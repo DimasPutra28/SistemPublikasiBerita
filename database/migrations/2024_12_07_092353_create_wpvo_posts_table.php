@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('post', function (Blueprint $table) {
+        Schema::create('wpvo_posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('post_author')->constrained('users')->onDelete('cascade'); // Relasi ke tabel users
+            $table->foreignId('post_author')->constrained('wpvo_users')->onDelete('cascade'); // Relasi ke tabel users
             $table->dateTime('post_date');
             $table->dateTime('post_date_gmt');
             $table->longtext('post_content');
@@ -21,11 +21,11 @@ return new class extends Migration
             $table->text('post_excerpt');
             $table->string('post_status',20)->default('draft');
             $table->string('comment_status',20)->default('open');
-            $table->string('ping_status',20);
+            $table->string('ping_status',20)->default('open');
             $table->string('post_password')->default('');
             $table->string('post_name',200);
-            $table->text('to_ping')->default(''); // Nilai default ditambahkan
-            $table->text('pinged')->default(''); // Nilai default ditambahkan
+            $table->text('to_ping')->default('');
+            $table->text('pinged')->default('');
             $table->dateTime('post_modified')->nullable(); // Bisa kosong (NULL) sebagai default awal
             $table->dateTime('post_modified_gmt')->nullable();
             $table->longtext('post_content_filtered')->default('');
@@ -35,7 +35,6 @@ return new class extends Migration
             $table->string('post_type', 20)->default('post');
             $table->string('post_mime_type', 100)->default('');
             $table->bigInteger('comment_count')->default(0);
-            $table->bigInteger('view_count')->default(0);
             $table->timestamps();
         });
     }
@@ -45,6 +44,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('post');
+        Schema::dropIfExists('wpvo_posts');
     }
 };

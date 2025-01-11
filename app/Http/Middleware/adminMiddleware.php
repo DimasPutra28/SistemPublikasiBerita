@@ -16,10 +16,11 @@ class adminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->role === 'admin') {
+        if (Auth::user()->user_status !== 0) {
             return $next($request);
         }
 
-        return redirect()->back(); // Jika bukan admin, arahkan ke dashboard biasa
+        return redirect('/'); // Jika bukan admin, arahkan ke dashboard biasa
+        // return redirect()->back(); // Jika bukan admin, arahkan ke dashboard biasa
     }
 }

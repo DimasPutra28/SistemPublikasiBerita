@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-    protected $table = 'post';
+    protected $table = 'wpvo_posts';
     protected $fillable = [
         'post_author',
         'post_date',
@@ -32,7 +32,7 @@ class Post extends Model
         'post_type',
         'post_mime_type',
         'comment_count',
-        'view_count',
+        
     ];
 
     public function author()

@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('submissions', function (Blueprint $table) {
+        Schema::create('views', function (Blueprint $table) {
             $table->id();
-            $table->string('submitter_name');
-            $table->string('submitter_email');
-            $table->string('submitter_phone');
-            $table->string('title');
-            $table->string('image');
-            $table->text('content');
-            $table->boolean('is_approved')->default(false);
+            // $table->ti('type');
+            // $table->string('period');
+            // $table->biginterger('count');
             $table->timestamps();
         });
     }
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('submissions');
+        Schema::dropIfExists('views');
     }
 };

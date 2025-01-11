@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+
     use HasFactory, Notifiable;
 
     /**
@@ -17,7 +18,7 @@ class User extends Authenticatable
      */
 
 
-    protected $table = 'users'; // Nama tabel
+    protected $table = 'wpvo_users'; // Nama tabel
 
     protected $primaryKey = 'ID'; // Kolom primary key
 
@@ -27,15 +28,9 @@ class User extends Authenticatable
         'email',
         'user_nicename',
         'display_name',
-        'role',
+        'user_status',
         'user_registered',
     ];
-    
-    public function posts()
-    {
-        return $this->hasMany(Post::class, 'post_author');
-    }
-
 
     /**
      * The attributes that should be hidden for serialization.
@@ -59,23 +54,22 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    //     public function getAuthPassword()
+    // {
+    //     return $this->password; // Jika kolom password di database adalah 'password'
+    // }
 
-//     public function getAuthPassword()
-// {
-//     return $this->password; // Jika kolom password di database adalah 'password'
-// }
-
-// public function getAuthIdentifierName()
-// {
-//     return 'email'; // Ganti dengan nama kolom yang Anda gunakan
-// }
-
+    // public function getAuthIdentifierName()
+    // {
+    //     return 'email'; // Ganti dengan nama kolom yang Anda gunakan
+    // }
 
 
-// public function username()
-// {
-//     return 'email'; // Gunakan user_email sebagai username
-// }
+
+    // public function username()
+    // {
+    //     return 'email'; // Gunakan user_email sebagai username
+    // }
 
 
 
